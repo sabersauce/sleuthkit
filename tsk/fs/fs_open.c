@@ -141,6 +141,7 @@ tsk_fs_open_img_decrypt(TSK_IMG_INFO * a_img_info, TSK_OFF_T a_offset,
 #if TSK_USE_HFS
         { "HFS",      hfs_open,     TSK_FS_TYPE_HFS_DETECT     },
 #endif
+	{ "XFS",  xfs_open, TSK_FS_TYPE_XFS_DETECT             },
         { "ISO9660",  iso9660_open, TSK_FS_TYPE_ISO9660_DETECT },
         { "APFS",     apfs_open_auto_detect,    TSK_FS_TYPE_APFS_DETECT }
     };
@@ -224,6 +225,9 @@ tsk_fs_open_img_decrypt(TSK_IMG_INFO * a_img_info, TSK_OFF_T a_offset,
     }
     else if (TSK_FS_TYPE_ISYAFFS2(a_ftype)) {
         return yaffs2_open(a_img_info, a_offset, a_ftype, 0);
+    }
+    else if (TSK_FS_TYPE_ISXFS(a_ftype)) {
+      return xfs_open(a_img_info, a_offset, a_ftype, 0);
     } 
     else if (TSK_FS_TYPE_ISAPFS(a_ftype)) {
         return apfs_open(a_img_info, a_offset, a_ftype, a_pass);
